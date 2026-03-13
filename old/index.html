@@ -46,10 +46,6 @@
         radial-gradient(at 50% 95%, rgba(34,174,201,.08) 0px, transparent 55%);
     }
     
-    @keyframes pulse-badge {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
-    }
     /* モーダル用スタイル */
     .modal {
         display: none;
@@ -219,172 +215,70 @@
       </div>
     </section>
 
-    <!-- CASES 上段：みっけシリーズ（稼ぎ頭） -->
+    <!-- CASES (5) -->
     <section id="cases" class="max-w-6xl mx-auto px-4 md:px-6 mt-14 md:mt-20">
-      <div class="bg-white/80 border border-white/60 rounded-3xl shadow-soft p-7 md:p-10 relative overflow-hidden">
-        <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-brand-cyan/10 blur-3xl pointer-events-none"></div>
-
-        <div class="relative">
-          <div class="flex items-center gap-2 flex-wrap">
-            <div class="text-xs font-bold text-brand-cyan">すぐ使えるAIアプリ</div>
-            <span class="inline-block bg-brand-gold text-white text-[10px] font-black px-2 py-0.5 rounded-full" style="animation:pulse-badge 2s ease-in-out infinite">🎁 3/31まで無料トライアル中</span>
-          </div>
-          <h2 class="mt-2 text-2xl md:text-3xl font-black text-brand-navy leading-snug">
-            現場で動く。今日から使える。<br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-navy to-brand-cyan">みっけシリーズ</span>
-          </h2>
-          <p class="mt-3 text-slate-600 text-sm leading-relaxed">
-            専門用語なし。写真を撮るだけ。<br>
-            中小企業の「強み」をAIが言葉にするツールシリーズです。
-          </p>
-
-          <!-- 期限バナー -->
-          <div class="mt-5 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-3 text-white" style="background:linear-gradient(90deg,#020562 0%,#22AEC9 100%)">
-            <div>
-              <div class="text-xs font-bold opacity-80">無料トライアル終了まで</div>
-              <div class="text-base font-black">3月31日（月）締め切り ⏰</div>
-            </div>
-            <a href="https://kachi-mikke.pages.dev" target="_blank" rel="noopener"
-               class="whitespace-nowrap bg-white text-brand-navy font-black text-sm px-5 py-2.5 rounded-xl hover:bg-brand-light transition shadow">
-              無料で試してみる →
-            </a>
-          </div>
-        </div>
-
-        <!-- みっけカード -->
-        <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-
-          <!-- 価値みっけ -->
-          <a href="https://kachi-mikke.pages.dev" target="_blank" rel="noopener"
-             class="group bg-gradient-to-br from-brand-light to-white rounded-2xl border border-brand-cyan/30 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="flex items-start justify-between mb-3">
-              <div class="px-2 py-0.5 rounded-md bg-brand-cyan/20 text-[10px] font-bold text-brand-navy w-fit">📸 写真→SNS投稿</div>
-              <span class="text-[10px] bg-brand-navy text-white font-bold px-2 py-0.5 rounded-full">人気No.1</span>
-            </div>
-            <div class="text-sm font-black text-brand-navy">価値みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">写真1枚で、強みの投稿文が完成。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">商品や現場の写真を撮るだけ。AIが「伝わる言葉」に変換してSNS投稿文を自動生成します。飲食・美容・製造・小売、どの業種でも使えます。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 法みっけ -->
-          <a href="https://ho-mikke.pages.dev" target="_blank" rel="noopener"
-             class="group bg-gradient-to-br from-slate-50 to-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="flex items-start justify-between mb-3">
-              <div class="px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-bold text-brand-navy w-fit">⚖️ 士業・法務向け</div>
-              <span class="text-[10px] bg-brand-cyan text-white font-bold px-2 py-0.5 rounded-full">NEW</span>
-            </div>
-            <div class="text-sm font-black text-brand-navy">法みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">契約書・規約のリスクを即チェック。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">書類をアップするだけで、法的リスクや気になる条項をAIが整理。税理士・行政書士・社労士など士業の先生の「確認作業」を大幅に短縮します。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 占いみっけ -->
-          <a href="https://uranai-mikke.pages.dev" target="_blank" rel="noopener"
-             class="group bg-gradient-to-br from-purple-50 to-white rounded-2xl border border-purple-100 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="flex items-start justify-between mb-3">
-              <div class="px-2 py-0.5 rounded-md bg-purple-100 text-[10px] font-bold text-purple-700 w-fit">🔮 SNS集客向け</div>
-              <span class="text-[10px] bg-purple-500 text-white font-bold px-2 py-0.5 rounded-full">NEW</span>
-            </div>
-            <div class="text-sm font-black text-brand-navy">占いみっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">占い師のSNS発信を、AIがサポート。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">鑑定内容をもとにSNS投稿文・プロフィール文を自動生成。個人サロンや占い師さんの集客・発信をラクにするツールです。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 艶みっけ -->
-          <a href="#" class="group bg-gradient-to-br from-pink-50 to-white rounded-2xl border border-pink-100 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="mb-3 px-2 py-0.5 rounded-md bg-pink-100 text-[10px] font-bold text-pink-600 w-fit">💄 美容業向け</div>
-            <div class="text-sm font-black text-brand-navy">艶みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">施術写真から、集客投稿文を自動生成。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">美容室・ネイル・エステ向けに特化。ビフォーアフター写真からお客様に刺さるキャプションとハッシュタグをまとめて出力します。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 味みっけ -->
-          <a href="#" class="group bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="mb-3 px-2 py-0.5 rounded-md bg-orange-100 text-[10px] font-bold text-orange-600 w-fit">🍽️ 飲食業向け</div>
-            <div class="text-sm font-black text-brand-navy">味みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">料理写真から、食欲そそる投稿文へ。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">飲食店向けSNS特化ツール。料理・店内・季節メニューの写真から、Instagramにそのまま使えるこだわり投稿文を生成します。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 技みっけ -->
-          <a href="#" class="group bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="mb-3 px-2 py-0.5 rounded-md bg-blue-100 text-[10px] font-bold text-blue-700 w-fit">🏭 製造業向け</div>
-            <div class="text-sm font-black text-brand-navy">技みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">職人の技を、言葉にする。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">製造・工場・職人向け。現場や製品の写真から技術力・こだわりをアピールするSNS投稿文・採用PR文を自動作成します。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-        </div>
-
-        <!-- 全シリーズCTA -->
-        <div class="mt-8 text-center">
-          <a href="https://kachi-mikke.pages.dev" target="_blank" rel="noopener"
-             class="inline-flex items-center gap-2 bg-brand-navy hover:bg-slate-900 text-white font-black px-8 py-4 rounded-2xl shadow-lg shadow-brand-navy/20 transition hover:-translate-y-0.5 text-sm">
-            🎁 みっけシリーズを無料で試す（3/31まで）
-          </a>
-          <p class="mt-2 text-xs text-slate-400">購入後はパスワードで永続利用可能 / ¥2,980買い切り</p>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- CASES 下段：コンセプト系ツール -->
-    <section class="max-w-6xl mx-auto px-4 md:px-6 mt-8">
       <div class="bg-white/75 border border-white/60 rounded-3xl shadow-card p-7 md:p-10">
-        <div class="text-xs font-bold text-brand-cyan">開発中のアプリ事例（コンセプト）</div>
-        <h2 class="mt-2 text-xl md:text-2xl font-black text-brand-navy">現場の「困った」から生まれようとしているツール</h2>
-        <p class="mt-3 text-sm text-slate-500">まだ途中ですが、方向性はここから育っています。</p>
+        <div class="text-xs font-bold text-brand-cyan">開発中のアプリ事例（イメージ）</div>
+        <h2 class="mt-2 text-2xl md:text-3xl font-black text-brand-navy">現場の「困った」から、こんなツールが生まれようとしています。</h2>
 
-        <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+        <p class="mt-6 text-slate-700 leading-relaxed">
+          まだ途中ですが、方向性はここから育っています。
+        </p>
+        <p class="mt-3 text-xs text-slate-400">※ 画面は開発中のイメージです。</p>
 
-          <!-- 判断軸 -->
-          <a href="https://spc-jp.github.io/bengoshi-1.1/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
-            <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「判断軸」</div>
-            <div class="text-sm font-black text-brand-navy">士業のための思考整理AI</div>
-            <div class="mt-1 text-xs text-slate-500">判断の前に、考えを整える。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">専門用語を使わずに論点や考えを整理し、実務に入る前の思考の土台を整えます。</p>
-            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
-          </a>
-
-          <!-- 潜在ニーズ軸 -->
-          <a href="https://spc-jp.github.io/senzai-needs/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
-            <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「潜在ニーズ軸」</div>
-            <div class="text-sm font-black text-brand-navy">潜在ニーズレーダー</div>
-            <div class="mt-1 text-xs text-slate-500">言葉になる前の「困った」を見つける。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">質問に答えるだけで頭の中に埋もれている困りごとを整理し、まだ言葉になっていない本音を見える形にします。</p>
-            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
-          </a>
-
-          <!-- 未来軸 -->
+        <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+          
+          <!-- 1. 未来軸 -->
           <a href="https://spc-jp.github.io/mirai365-apl/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
             <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「未来軸」</div>
             <div class="text-sm font-black text-brand-navy">Mirai365｜未来を描く習慣化ツール</div>
             <div class="mt-1 text-xs text-slate-500">考えを、1日1歩に落とす。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">未来のイメージを言葉にし、毎日の一歩に落とすための思考整理ツール。続けられる形で目標と向き合えます。</p>
+            <p class="mt-3 text-sm text-slate-700 flex-grow">やりたいことはあるのに、忙しさで流れてしまう。Mirai365は、未来のイメージを言葉にし、毎日の一歩に落とすための思考整理ツールです。<br>答えを急がず、続けられる形で目標と向き合えます。</p>
+            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
+          </a>
+
+          <!-- 2. 伝達軸 -->
+          <a href="https://spc-jp.github.io/Hitokoto2.0-apl/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
+            <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「伝達軸」</div>
+            <div class="text-sm font-black text-brand-navy">Hitokoto｜伝え方補助ツール</div>
+            <div class="mt-1 text-xs text-slate-500">3秒で、伝え方を整える。</div>
+            <p class="mt-3 text-sm text-slate-700 flex-grow">部下や相手が動かない時、何と言うか迷ってしまう。Hitokotoは、状況を選ぶだけで「今、この一言」が見つかる現場向けツールです。考え込まず、伝え方が決まります。</p>
+            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
+          </a>
+
+          <!-- 3. 発想軸 -->
+          <a href="https://spc-jp.github.io/idea-navi/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
+            <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「発想軸」</div>
+            <div class="text-sm font-black text-brand-navy">事業アイディア整理ナビ</div>
+            <div class="mt-1 text-xs text-slate-500">思いつきを、形にする前の場所。</div>
+            <p class="mt-3 text-sm text-slate-700 flex-grow">アイディアはあるのに、整理できず進まない。このツールは、浮かんだ発想や違和感を書き出し、事業アイディアとして整えるための思考サポートです。考える前で止まらず、次の一歩へつなげます。</p>
+            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
+          </a>
+
+          <!-- 4. 判断軸 -->
+          <a href="https://spc-jp.github.io/bengoshi-1.1/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
+            <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「判断軸」</div>
+            <div class="text-sm font-black text-brand-navy">士業のための思考整理AI</div>
+            <div class="mt-1 text-xs text-slate-500">判断の前に、考えを整える。</div>
+            <p class="mt-3 text-sm text-slate-700 flex-grow">説明、判断、文章作成。士業の仕事は「考える前」で止まりがちです。このツールは、専門用語を使わずに論点や考えを整理し、実務に入る前の思考の土台を整えます。</p>
+            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
+          </a>
+
+          <!-- 5. 発信軸 -->
+          <a href="https://spc-jp.github.io/toko-navi/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
+            <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「発信軸」</div>
+            <div class="text-sm font-black text-brand-navy">投稿ナビ｜SNS発信サポート</div>
+            <div class="mt-1 text-xs text-slate-500">考えなくても、発信できる。</div>
+            <p class="mt-3 text-sm text-slate-700 flex-grow">SNSは大事だと分かっている。でも止まってしまう。投稿ナビは、画面に沿って選ぶだけで、そのまま使える投稿文を整理します。ネタ探しや文章作成で悩まず、発信を続けられます。</p>
+            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
+          </a>
+
+          <!-- 6. 潜在ニーズ軸 -->
+          <a href="https://spc-jp.github.io/senzai-needs/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
+            <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「潜在ニーズ軸」</div>
+            <div class="text-sm font-black text-brand-navy">潜在ニーズレーダー</div>
+            <div class="mt-1 text-xs text-slate-500">言葉になる前の「困った」を見つける。</div>
+            <p class="mt-3 text-sm text-slate-700 flex-grow">なんとなく違和感はある。でも、何が問題か分からない。潜在ニーズレーダーは、質問に答えるだけで頭の中に埋もれている困りごとを整理し、まだ言葉になっていない本音や課題を見える形にする思考整理ツールです。</p>
             <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
           </a>
 
