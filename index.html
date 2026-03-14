@@ -3,22 +3,23 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="ひとりで考えなくていい。答えを出さなくてもいい。まずは頭の中を並べるところから。忙しい現場のための、考える前に立ち止まれる場所です。" />
-  <title>考える前に立ち止まれる場所｜SPC</title>
+  <meta name="description" content="モヤッとを30秒で整理する、経営者の相棒ツール。考えるを、ひとりにしない。" />
+  <title>考えるを、ひとりにしない｜SPC</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Zen+Kaku+Gothic+New:wght@700;900&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <!-- アイコン用ライブラリ Lucide -->
-  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://unpkg.com/lucide@0.383.0/dist/umd/lucide.min.js"></script>
 
   <script>
     tailwind.config = {
       theme: {
         extend: {
-          fontFamily: { sans: ['"Noto Sans JP"', 'sans-serif'] },
+          fontFamily: {
+            sans: ['"Noto Sans JP"', 'sans-serif'],
+            display: ['"Zen Kaku Gothic New"', 'sans-serif'],
+          },
           colors: {
             brand: {
               navy: '#020562',
@@ -28,8 +29,9 @@
             }
           },
           boxShadow: {
-            soft: '0 10px 40px -10px rgba(2, 5, 98, 0.10)',
-            card: '0 6px 24px -6px rgba(2, 5, 98, 0.10)'
+            soft: '0 10px 40px -10px rgba(2,5,98,0.10)',
+            card: '0 6px 24px -6px rgba(2,5,98,0.10)',
+            glow: '0 0 40px -5px rgba(34,174,201,0.35)',
           }
         }
       }
@@ -37,622 +39,626 @@
   </script>
 
   <style>
-    .glass{background:rgba(255,255,255,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-    .bg-mesh{
-      background-color:#fff;
+    /* ガラス */
+    .glass {
+      background: rgba(255,255,255,.88);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    /* メッシュ背景 */
+    .bg-mesh {
+      background-color: #f8faff;
       background-image:
-        radial-gradient(at 15% 10%, rgba(34,174,201,.18) 0px, transparent 55%),
-        radial-gradient(at 90% 0%, rgba(2,5,98,.10) 0px, transparent 55%),
-        radial-gradient(at 50% 95%, rgba(34,174,201,.08) 0px, transparent 55%);
+        radial-gradient(at 10% 5%,  rgba(34,174,201,.20) 0px, transparent 55%),
+        radial-gradient(at 92% 8%,  rgba(2,5,98,.10)     0px, transparent 55%),
+        radial-gradient(at 55% 95%, rgba(34,174,201,.10) 0px, transparent 55%);
     }
-    
+
+    /* フェードイン */
+    @keyframes fadeUp {
+      from { opacity:0; transform:translateY(20px); }
+      to   { opacity:1; transform:translateY(0); }
+    }
+    .fade-up { animation: fadeUp .7s ease-out both; }
+    .delay-1 { animation-delay:.15s; }
+    .delay-2 { animation-delay:.30s; }
+    .delay-3 { animation-delay:.45s; }
+    .delay-4 { animation-delay:.60s; }
+
+    /* バッジ点滅 */
     @keyframes pulse-badge {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+      0%,100% { opacity:1; }
+      50%      { opacity:.65; }
     }
-    /* モーダル用スタイル */
-    .modal {
-        display: none;
-        position: fixed;
-        z-index: 100;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(2, 5, 98, 0.6); /* ブランドカラーの透過 */
-        align-items: center;
-        justify-content: center;
-        backdrop-filter: blur(4px);
+    .badge-pulse { animation: pulse-badge 2.2s ease-in-out infinite; }
+
+    /* モーダル */
+    .modal { display:none; position:fixed; z-index:100; inset:0;
+      background:rgba(2,5,98,.55); backdrop-filter:blur(4px);
+      align-items:center; justify-content:center; }
+    .modal.show { display:flex; animation:fadeIn .3s ease-out; }
+    @keyframes fadeIn { from{opacity:0} to{opacity:1} }
+
+    /* カードホバー */
+    .app-card { transition: transform .2s, box-shadow .2s; }
+    .app-card:hover { transform:translateY(-4px); box-shadow: 0 14px 40px -8px rgba(2,5,98,.16); }
+
+    /* グラデーションテキスト */
+    .grad-text {
+      background: linear-gradient(135deg, #020562 0%, #22AEC9 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
-    .modal.show {
-        display: flex;
-        animation: fadeIn 0.3s ease-out;
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
+
+    /* ライン装飾 */
+    .section-label::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      background: #22AEC9;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
     }
   </style>
 </head>
 
 <body class="font-sans text-slate-800 bg-mesh min-h-screen">
 
-  <!-- Header -->
-  <header class="fixed top-0 w-full z-50 glass border-b border-slate-200/60">
-    <div class="max-w-6xl mx-auto px-4 md:px-6 h-16 md:h-20 flex items-center justify-between">
-      
-      <!-- ロゴ -->
-      <a href="#top" class="flex items-center transition-transform hover:scale-105">
-        <img src="rogo.png" alt="SPC" class="h-12 w-auto md:h-16 rounded-xl object-contain filter" onerror="this.onerror=null; this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100\' height=\'48\' viewBox=\'0 0 100 48\'><rect width=\'100\' height=\'48\' fill=\'%23020562\' rx=\'8\'/><text x=\'50\' y=\'24\' font-family=\'sans-serif\' font-size=\'20\' font-weight=\'bold\' fill=\'white\' text-anchor=\'middle\' dominant-baseline=\'central\'>SPC</text></svg>'">
+  <!-- ========== HEADER ========== -->
+  <header class="fixed top-0 w-full z-50 glass border-b border-slate-200/50">
+    <div class="max-w-5xl mx-auto px-4 md:px-6 h-16 flex items-center justify-between">
+      <a href="#top">
+        <img src="rogo.png" alt="SPC" class="h-10 w-auto rounded-lg object-contain"
+          onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'80\' height=\'40\' viewBox=\'0 0 80 40\'><rect width=\'80\' height=\'40\' fill=\'%23020562\' rx=\'6\'/><text x=\'40\' y=\'20\' font-family=\'sans-serif\' font-size=\'16\' font-weight=\'bold\' fill=\'white\' text-anchor=\'middle\' dominant-baseline=\'central\'>SPC</text></svg>'">
       </a>
 
-      <!-- ナビゲーション -->
-      <nav class="hidden md:flex items-center gap-2">
-        <a href="#why" class="text-xs font-bold text-slate-600 hover:text-brand-navy px-3 py-2 rounded-full hover:bg-slate-100">なぜ必要？</a>
-        <a href="#what" class="text-xs font-bold text-slate-600 hover:text-brand-navy px-3 py-2 rounded-full hover:bg-slate-100">できること</a>
-        <a href="#cases" class="text-xs font-bold text-slate-600 hover:text-brand-navy px-3 py-2 rounded-full hover:bg-slate-100">開発事例</a>
-        <a href="#cocreate" class="text-xs font-bold text-white bg-brand-navy hover:bg-slate-900 px-4 py-2.5 rounded-full shadow-lg shadow-brand-navy/20">1分だけ声を送る</a>
-        <a href="https://www.smileplusctg.com/" target="_blank" rel="noopener" class="text-xs font-medium text-slate-500 hover:text-brand-navy px-3 py-2 rounded-full hover:bg-slate-100">公式サイト</a>
+      <nav class="hidden md:flex items-center gap-1">
+        <a href="#apps"     class="text-xs font-bold text-slate-500 hover:text-brand-navy px-3 py-2 rounded-full hover:bg-slate-100 transition">アプリ一覧</a>
+        <a href="#concept"  class="text-xs font-bold text-slate-500 hover:text-brand-navy px-3 py-2 rounded-full hover:bg-slate-100 transition">想い</a>
+        <a href="#cocreate" class="text-xs font-bold text-white bg-brand-navy hover:bg-slate-900 px-4 py-2 rounded-full shadow transition">声を送る</a>
+        <a href="https://www.smileplusctg.com/" target="_blank" rel="noopener"
+           class="text-xs text-slate-400 hover:text-brand-navy px-3 py-2 rounded-full hover:bg-slate-100 transition">公式サイト</a>
       </nav>
 
-      <!-- ハンバーガーメニュー -->
       <button id="menuBtn" class="md:hidden p-2 rounded-xl hover:bg-white/60" aria-label="メニュー">
-        <i data-lucide="menu" class="w-6 h-6 text-brand-navy"></i>
+        <i data-lucide="menu" class="w-5 h-5 text-brand-navy"></i>
       </button>
     </div>
 
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200/60 bg-white/90 backdrop-blur">
-      <div class="max-w-6xl mx-auto px-4 py-4 flex flex-col gap-2">
-        <a class="py-3 px-3 rounded-xl hover:bg-slate-50" href="#why">なぜ必要？</a>
-        <a class="py-3 px-3 rounded-xl hover:bg-slate-50" href="#what">できること</a>
-        <a class="py-3 px-3 rounded-xl hover:bg-slate-50" href="#cases">開発事例</a>
-        <a class="py-3 px-3 rounded-xl bg-brand-navy text-white font-bold" href="#cocreate">1分だけ声を送る</a>
-        <a class="py-3 px-3 rounded-xl hover:bg-slate-50" href="https://www.smileplusctg.com/" target="_blank" rel="noopener">公式サイト</a>
+    <div id="mobileMenu" class="md:hidden hidden border-t border-slate-200/50 bg-white/95">
+      <div class="max-w-5xl mx-auto px-4 py-3 flex flex-col gap-1">
+        <a class="py-3 px-3 rounded-xl hover:bg-slate-50 text-sm font-bold" href="#apps">アプリ一覧</a>
+        <a class="py-3 px-3 rounded-xl hover:bg-slate-50 text-sm font-bold" href="#concept">想い</a>
+        <a class="py-3 px-3 rounded-xl bg-brand-navy text-white font-bold text-sm" href="#cocreate">声を送る</a>
+        <a class="py-3 px-3 rounded-xl hover:bg-slate-50 text-sm" href="https://www.smileplusctg.com/" target="_blank">公式サイト</a>
       </div>
     </div>
   </header>
 
-  <!-- メインコンテンツ -->
-  <main id="top" class="pt-28 md:pt-40 pb-24">
 
-    <!-- キャッチコピー -->
-    <div class="max-w-6xl mx-auto px-4 md:px-6 mb-6 md:mb-8">
-      <div class="leading-tight">
-        <div class="text-lg md:text-xl font-black text-brand-navy">考える前に立ち止まれる場所</div>
-        <div class="text-sm md:text-base text-slate-500 mt-1">現場の声で育てる相棒</div>
-      </div>
-    </div>
+  <main id="top" class="pt-24 pb-24">
 
-    <!-- HERO (1) -->
-    <section class="max-w-6xl mx-auto px-4 md:px-6">
-      <div class="bg-white/80 border border-white/60 rounded-3xl shadow-soft p-7 md:p-12 relative overflow-hidden">
-        <div class="absolute -right-24 -top-24 w-72 h-72 rounded-full bg-brand-cyan/15 blur-3xl"></div>
+    <!-- ========== BLOCK 1：一言で刺す ========== -->
+    <section class="max-w-5xl mx-auto px-4 md:px-6 mt-6 md:mt-12">
+      <div class="relative bg-white/85 border border-white/60 rounded-3xl shadow-soft overflow-hidden p-8 md:p-14">
+
+        <!-- 装飾 -->
+        <div class="absolute -right-20 -top-20 w-72 h-72 rounded-full bg-brand-cyan/15 blur-3xl pointer-events-none"></div>
+        <div class="absolute -left-10 bottom-0 w-48 h-48 rounded-full bg-brand-navy/5 blur-2xl pointer-events-none"></div>
+
         <div class="relative">
-          <!-- スマホ表示の文字サイズを text-3xl から text-2xl に縮小 -->
-          <h1 class="text-2xl md:text-5xl font-black text-brand-navy leading-tight tracking-tight">
-            ひとりで考えなくていい。<br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-navy to-brand-cyan">答えを出さなくてもいい。</span>
+          <!-- コンセプト -->
+          <div class="fade-up inline-flex items-center gap-2 bg-brand-light border border-brand-cyan/30 text-brand-cyan text-xs font-bold px-3 py-1.5 rounded-full mb-5">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand-cyan inline-block"></span>
+            考えるを、ひとりにしない。
+          </div>
+
+          <!-- メインコピー -->
+          <h1 class="fade-up delay-1 font-display text-3xl md:text-6xl font-black text-brand-navy leading-tight tracking-tight">
+            モヤッとを<br>
+            <span class="grad-text">30秒で整理する</span><br>
+            経営者の相棒ツール
           </h1>
 
-          <p class="mt-6 text-lg md:text-xl font-bold text-brand-navy leading-relaxed">
-            まずは、<br class="md:hidden">頭の中を並べるところから。
-          </p>
-          <p class="mt-2 text-slate-600 leading-relaxed">
-            忙しい現場のための、<br class="md:hidden">考える前に立ち止まれる場所です。
+          <p class="fade-up delay-2 mt-5 text-slate-500 text-sm md:text-base leading-relaxed max-w-xl">
+            アイデアが散らかったまま会議が終わる。<br>
+            次の一手が見えない。そんな瞬間のための、現場で動くAIアプリです。
           </p>
 
-          <p class="mt-6 text-slate-500 leading-relaxed">
-            専門用語は使いません。<br>
-            想いと強みを、あなたの言葉のままで。
-          </p>
-
-          <div class="mt-8 flex flex-col sm:flex-row gap-3">
-            <a href="#cocreate" class="inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-slate-900 text-white font-bold px-6 py-4 rounded-2xl shadow-lg shadow-brand-navy/20 transition">
-              1分だけ、困ったを置いていく 😊
-            </a>
-            <a href="#cases" class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-brand-navy font-bold px-6 py-4 rounded-2xl border border-slate-200 transition">
-              開発中の事例を見る
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHY (2) -->
-    <section id="why" class="max-w-6xl mx-auto px-4 md:px-6 mt-14 md:mt-20">
-      <div class="grid md:grid-cols-12 gap-6 items-stretch">
-        <div class="md:col-span-7 bg-white/75 border border-white/60 rounded-3xl shadow-card p-7 md:p-10">
-          <div class="text-xs font-bold text-brand-cyan">なぜ必要？</div>
-          <h2 class="mt-2 text-2xl md:text-3xl font-black text-brand-navy">仕事が止まるのは、<br>答えが無い時じゃない</h2>
-
-          <p class="mt-6 leading-relaxed text-slate-700">
-            本当に大変なのは、答えを探すことじゃありません。<br>
-            仕事が止まるのは、<br class="md:hidden">「何から手をつければいいか」分からなくなった瞬間です。
-          </p>
-          <p class="mt-4 leading-relaxed text-slate-700">
-            ここは、答えを出す場所ではありません。<br>
-            まず整理するための場所です。
-          </p>
-        </div>
-
-        <div class="md:col-span-5 bg-brand-light/70 border border-white/60 rounded-3xl shadow-card p-7 md:p-10">
-          <div class="text-xs font-bold text-brand-navy">こんな時に</div>
-          <ul class="mt-5 space-y-3 text-slate-700">
-            <li class="flex gap-2"><span class="mt-1 w-2 h-2 rounded-full bg-brand-cyan"></span>考えが散らかって、前に進めない</li>
-            <li class="flex gap-2"><span class="mt-1 w-2 h-2 rounded-full bg-brand-cyan"></span>打ち合わせのあと、要点が残らない</li>
-            <li class="flex gap-2"><span class="mt-1 w-2 h-2 rounded-full bg-brand-cyan"></span>次の一手が決まらず、止まってしまう</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- WHAT (3) -->
-    <section id="what" class="max-w-6xl mx-auto px-4 md:px-6 mt-14 md:mt-20">
-      <div class="bg-white/75 border border-white/60 rounded-3xl shadow-card p-7 md:p-10">
-        <div class="text-xs font-bold text-brand-cyan">できること</div>
-        <!-- ここに改行タグ <br> を追加しました -->
-        <h2 class="mt-2 text-2xl md:text-3xl font-black text-brand-navy">できることは、<br>とてもシンプル。</h2>
-
-        <p class="mt-6 text-slate-700 leading-relaxed">
-          書き出して、整理して、次の一歩を見つける。
-        </p>
-        <p class="mt-3 text-slate-700 leading-relaxed">
-          難しい操作や専門用語は最小限。<br>
-          「すごいAI」より、現場で続く仕組みを大切にしています。
-        </p>
-
-        <div class="mt-8 grid md:grid-cols-3 gap-4">
-          <div class="bg-white rounded-2xl border border-slate-200 p-5">
-            <div class="text-xs font-bold text-brand-navy">1. 材料を広げる</div>
-            <p class="mt-2 text-sm text-slate-600">雑多でOK。思いつくまま置ける。</p>
-          </div>
-          <div class="bg-white rounded-2xl border border-slate-200 p-5">
-            <div class="text-xs font-bold text-brand-navy">2. 要点を絞る</div>
-            <p class="mt-2 text-sm text-slate-600">課題・論点・仮説を短文で。</p>
-          </div>
-          <div class="bg-white rounded-2xl border border-slate-200 p-5">
-            <div class="text-xs font-bold text-brand-navy">3. 次の一手にする</div>
-            <p class="mt-2 text-sm text-slate-600">行動は最大3つに絞る。</p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- CASES 上段：みっけシリーズ（稼ぎ頭） -->
-    <section id="cases" class="max-w-6xl mx-auto px-4 md:px-6 mt-14 md:mt-20">
-      <div class="bg-white/80 border border-white/60 rounded-3xl shadow-soft p-7 md:p-10 relative overflow-hidden">
-        <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-brand-cyan/10 blur-3xl pointer-events-none"></div>
-
-        <div class="relative">
-          <div class="flex items-center gap-2 flex-wrap">
-            <div class="text-xs font-bold text-brand-cyan">すぐ使えるAIアプリ</div>
-            <span class="inline-block bg-brand-gold text-white text-[10px] font-black px-2 py-0.5 rounded-full" style="animation:pulse-badge 2s ease-in-out infinite">🎁 3/31まで無料トライアル中</span>
-          </div>
-          <h2 class="mt-2 text-2xl md:text-3xl font-black text-brand-navy leading-snug">
-            現場で動く。今日から使える。<br>
-            <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-navy to-brand-cyan">みっけシリーズ</span>
-          </h2>
-          <p class="mt-3 text-slate-600 text-sm leading-relaxed">
-            専門用語なし。写真を撮るだけ。<br>
-            中小企業の「強み」をAIが言葉にするツールシリーズです。
-          </p>
-
-          <!-- 期限バナー -->
-          <div class="mt-5 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-3 text-white" style="background:linear-gradient(90deg,#020562 0%,#22AEC9 100%)">
-            <div>
-              <div class="text-xs font-bold opacity-80">無料トライアル終了まで</div>
-              <div class="text-base font-black">3月31日（月）締め切り ⏰</div>
-            </div>
+          <!-- CTA -->
+          <div class="fade-up delay-3 mt-8 flex flex-col sm:flex-row gap-3">
             <a href="https://kachi-mikke.pages.dev" target="_blank" rel="noopener"
-               class="whitespace-nowrap bg-white text-brand-navy font-black text-sm px-5 py-2.5 rounded-xl hover:bg-brand-light transition shadow">
-              無料で試してみる →
+               class="inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-slate-900 text-white font-black px-7 py-4 rounded-2xl shadow-lg shadow-brand-navy/25 transition hover:-translate-y-0.5 text-sm">
+              <i data-lucide="zap" class="w-4 h-4"></i>
+              まず試してみる（無料）
+            </a>
+            <a href="#concept"
+               class="inline-flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-brand-navy font-bold px-7 py-4 rounded-2xl border border-slate-200 transition text-sm">
+              開発者の想いを読む
             </a>
           </div>
+
+          <!-- 小さなバッジ -->
+          <p class="fade-up delay-4 mt-5 text-xs text-slate-400">
+            🎁 3月31日まで全アプリ無料トライアル中
+          </p>
         </div>
-
-        <!-- みっけカード -->
-        <div class="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-
-          <!-- 価値みっけ -->
-          <a href="https://kachi-mikke.pages.dev" target="_blank" rel="noopener"
-             class="group bg-gradient-to-br from-brand-light to-white rounded-2xl border border-brand-cyan/30 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="flex items-start justify-between mb-3">
-              <div class="px-2 py-0.5 rounded-md bg-brand-cyan/20 text-[10px] font-bold text-brand-navy w-fit">📸 写真→SNS投稿</div>
-              <span class="text-[10px] bg-brand-navy text-white font-bold px-2 py-0.5 rounded-full">人気No.1</span>
-            </div>
-            <div class="text-sm font-black text-brand-navy">価値みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">写真1枚で、強みの投稿文が完成。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">商品や現場の写真を撮るだけ。AIが「伝わる言葉」に変換してSNS投稿文を自動生成します。飲食・美容・製造・小売、どの業種でも使えます。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 法みっけ -->
-          <a href="https://ho-mikke.pages.dev" target="_blank" rel="noopener"
-             class="group bg-gradient-to-br from-slate-50 to-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="flex items-start justify-between mb-3">
-              <div class="px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-bold text-brand-navy w-fit">⚖️ 士業・法務向け</div>
-              <span class="text-[10px] bg-brand-cyan text-white font-bold px-2 py-0.5 rounded-full">NEW</span>
-            </div>
-            <div class="text-sm font-black text-brand-navy">法みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">契約書・規約のリスクを即チェック。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">書類をアップするだけで、法的リスクや気になる条項をAIが整理。税理士・行政書士・社労士など士業の先生の「確認作業」を大幅に短縮します。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 占いみっけ -->
-          <a href="https://uranai-mikke.pages.dev" target="_blank" rel="noopener"
-             class="group bg-gradient-to-br from-purple-50 to-white rounded-2xl border border-purple-100 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="flex items-start justify-between mb-3">
-              <div class="px-2 py-0.5 rounded-md bg-purple-100 text-[10px] font-bold text-purple-700 w-fit">🔮 SNS集客向け</div>
-              <span class="text-[10px] bg-purple-500 text-white font-bold px-2 py-0.5 rounded-full">NEW</span>
-            </div>
-            <div class="text-sm font-black text-brand-navy">占いみっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">占い師のSNS発信を、AIがサポート。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">鑑定内容をもとにSNS投稿文・プロフィール文を自動生成。個人サロンや占い師さんの集客・発信をラクにするツールです。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 艶みっけ -->
-          <a href="#" class="group bg-gradient-to-br from-pink-50 to-white rounded-2xl border border-pink-100 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="mb-3 px-2 py-0.5 rounded-md bg-pink-100 text-[10px] font-bold text-pink-600 w-fit">💄 美容業向け</div>
-            <div class="text-sm font-black text-brand-navy">艶みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">施術写真から、集客投稿文を自動生成。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">美容室・ネイル・エステ向けに特化。ビフォーアフター写真からお客様に刺さるキャプションとハッシュタグをまとめて出力します。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 味みっけ -->
-          <a href="#" class="group bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="mb-3 px-2 py-0.5 rounded-md bg-orange-100 text-[10px] font-bold text-orange-600 w-fit">🍽️ 飲食業向け</div>
-            <div class="text-sm font-black text-brand-navy">味みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">料理写真から、食欲そそる投稿文へ。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">飲食店向けSNS特化ツール。料理・店内・季節メニューの写真から、Instagramにそのまま使えるこだわり投稿文を生成します。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-          <!-- 技みっけ -->
-          <a href="#" class="group bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 p-5 hover:shadow-card transition hover:-translate-y-1 flex flex-col h-full">
-            <div class="mb-3 px-2 py-0.5 rounded-md bg-blue-100 text-[10px] font-bold text-blue-700 w-fit">🏭 製造業向け</div>
-            <div class="text-sm font-black text-brand-navy">技みっけ</div>
-            <div class="mt-0.5 text-xs text-slate-500">職人の技を、言葉にする。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">製造・工場・職人向け。現場や製品の写真から技術力・こだわりをアピールするSNS投稿文・採用PR文を自動作成します。</p>
-            <div class="mt-4 flex items-center justify-between">
-              <div class="text-xs text-slate-400">通常 ¥2,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
-              <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
-            </div>
-          </a>
-
-        </div>
-
-        <!-- 全シリーズCTA -->
-        <div class="mt-8 text-center">
-          <a href="https://kachi-mikke.pages.dev" target="_blank" rel="noopener"
-             class="inline-flex items-center gap-2 bg-brand-navy hover:bg-slate-900 text-white font-black px-8 py-4 rounded-2xl shadow-lg shadow-brand-navy/20 transition hover:-translate-y-0.5 text-sm">
-            🎁 みっけシリーズを無料で試す（3/31まで）
-          </a>
-          <p class="mt-2 text-xs text-slate-400">購入後はパスワードで永続利用可能 / ¥2,980買い切り</p>
-        </div>
-
       </div>
     </section>
 
-    <!-- CASES 下段：コンセプト系ツール -->
-    <section class="max-w-6xl mx-auto px-4 md:px-6 mt-8">
-      <div class="bg-white/75 border border-white/60 rounded-3xl shadow-card p-7 md:p-10">
-        <div class="text-xs font-bold text-brand-cyan">開発中のアプリ事例（コンセプト）</div>
-        <h2 class="mt-2 text-xl md:text-2xl font-black text-brand-navy">現場の「困った」から生まれようとしているツール</h2>
-        <p class="mt-3 text-sm text-slate-500">まだ途中ですが、方向性はここから育っています。</p>
 
-        <div class="mt-6 grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <!-- ========== BLOCK 2：すぐデモへ誘導 ========== -->
+    <section id="apps" class="max-w-5xl mx-auto px-4 md:px-6 mt-12 md:mt-20">
 
-          <!-- 判断軸 -->
-          <a href="https://spc-jp.github.io/bengoshi-1.1/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <div class="section-label text-xs font-bold text-brand-cyan">AIアプリ</div>
+          <h2 class="mt-1 text-2xl md:text-3xl font-display font-black text-brand-navy">今日から使える、みっけシリーズ</h2>
+        </div>
+        <span class="badge-pulse hidden md:inline-flex items-center gap-1 bg-brand-gold/10 border border-brand-gold/30 text-brand-gold text-xs font-bold px-3 py-1.5 rounded-full">
+          ⏰ 3/31まで無料
+        </span>
+      </div>
+
+      <!-- 無料期限バナー -->
+      <div class="mb-6 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-3 text-white"
+           style="background:linear-gradient(100deg,#020562 0%,#22AEC9 100%)">
+        <div>
+          <div class="text-xs opacity-75 font-medium">無料トライアル終了まで</div>
+          <div class="font-black text-base">3月31日（月）締め切り ⏰</div>
+        </div>
+        <a href="https://kachi-mikke.pages.dev" target="_blank" rel="noopener"
+           class="whitespace-nowrap bg-white text-brand-navy font-black text-sm px-5 py-2.5 rounded-xl hover:bg-brand-light transition shadow">
+          無料で試してみる →
+        </a>
+      </div>
+
+      <!-- アプリカード -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <!-- 価値みっけ（推し） -->
+        <a href="https://kachi-mikke.pages.dev" target="_blank" rel="noopener"
+           class="app-card group bg-gradient-to-br from-brand-light to-white rounded-2xl border border-brand-cyan/30 p-5 flex flex-col h-full relative">
+          <div class="absolute top-4 right-4">
+            <span class="text-[10px] bg-brand-navy text-white font-black px-2 py-0.5 rounded-full">人気No.1</span>
+          </div>
+          <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-cyan/15 text-[10px] font-bold text-brand-navy w-fit">📸 写真→SNS投稿</div>
+          <div class="text-base font-black text-brand-navy">価値みっけ</div>
+          <div class="mt-0.5 text-xs text-slate-500">写真1枚で、強みの投稿文が完成。</div>
+          <p class="mt-3 text-sm text-slate-600 flex-grow leading-relaxed">
+            商品や現場の写真を撮るだけ。AIが「伝わる言葉」に変換してSNS投稿文を自動生成します。飲食・美容・製造どの業種でも対応。
+          </p>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-xs text-slate-400">通常 ¥4,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
+            <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
+          </div>
+        </a>
+
+        <!-- 法みっけ -->
+        <a href="https://ho-mikke.pages.dev" target="_blank" rel="noopener"
+           class="app-card group bg-gradient-to-br from-slate-50 to-white rounded-2xl border border-slate-200 p-5 flex flex-col h-full relative">
+          <div class="absolute top-4 right-4">
+            <span class="text-[10px] bg-brand-cyan text-white font-bold px-2 py-0.5 rounded-full">NEW</span>
+          </div>
+          <div class="mb-2 px-2 py-0.5 rounded-md bg-slate-100 text-[10px] font-bold text-brand-navy w-fit">⚖️ 士業・法務向け</div>
+          <div class="text-base font-black text-brand-navy">法みっけ</div>
+          <div class="mt-0.5 text-xs text-slate-500">契約書・規約のリスクを即チェック。</div>
+          <p class="mt-3 text-sm text-slate-600 flex-grow leading-relaxed">
+            書類をアップするだけで、法的リスクや気になる条項をAIが整理。税理士・行政書士・社労士の確認作業を大幅に短縮します。
+          </p>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-xs text-slate-400">通常 ¥4,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
+            <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
+          </div>
+        </a>
+
+        <!-- 占いみっけ -->
+        <a href="https://uranai-mikke.pages.dev" target="_blank" rel="noopener"
+           class="app-card group bg-gradient-to-br from-purple-50 to-white rounded-2xl border border-purple-100 p-5 flex flex-col h-full relative">
+          <div class="absolute top-4 right-4">
+            <span class="text-[10px] bg-purple-500 text-white font-bold px-2 py-0.5 rounded-full">NEW</span>
+          </div>
+          <div class="mb-2 px-2 py-0.5 rounded-md bg-purple-100 text-[10px] font-bold text-purple-700 w-fit">🔮 SNS集客向け</div>
+          <div class="text-base font-black text-brand-navy">占いみっけ</div>
+          <div class="mt-0.5 text-xs text-slate-500">占い師のSNS発信を、AIがサポート。</div>
+          <p class="mt-3 text-sm text-slate-600 flex-grow leading-relaxed">
+            鑑定内容をもとにSNS投稿文・プロフィール文を自動生成。個人サロンや占い師さんの集客・発信をラクにします。
+          </p>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-xs text-slate-400">通常 ¥4,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
+            <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
+          </div>
+        </a>
+
+        <!-- 艶みっけ -->
+        <a href="#" class="app-card group bg-gradient-to-br from-pink-50 to-white rounded-2xl border border-pink-100 p-5 flex flex-col h-full">
+          <div class="mb-2 px-2 py-0.5 rounded-md bg-pink-100 text-[10px] font-bold text-pink-600 w-fit">💄 美容業向け</div>
+          <div class="text-base font-black text-brand-navy">艶みっけ</div>
+          <div class="mt-0.5 text-xs text-slate-500">施術写真から、集客投稿文を自動生成。</div>
+          <p class="mt-3 text-sm text-slate-600 flex-grow leading-relaxed">
+            美容室・ネイル・エステ向けに特化。ビフォーアフター写真からキャプションとハッシュタグをまとめて出力します。
+          </p>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-xs text-slate-400">通常 ¥4,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
+            <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
+          </div>
+        </a>
+
+        <!-- 味みっけ -->
+        <a href="#" class="app-card group bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 p-5 flex flex-col h-full">
+          <div class="mb-2 px-2 py-0.5 rounded-md bg-orange-100 text-[10px] font-bold text-orange-600 w-fit">🍽️ 飲食業向け</div>
+          <div class="text-base font-black text-brand-navy">味みっけ</div>
+          <div class="mt-0.5 text-xs text-slate-500">料理写真から、食欲そそる投稿文へ。</div>
+          <p class="mt-3 text-sm text-slate-600 flex-grow leading-relaxed">
+            飲食店向けSNS特化ツール。料理・店内・季節メニューの写真からInstagramにそのまま使えるこだわり投稿文を生成します。
+          </p>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-xs text-slate-400">通常 ¥4,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
+            <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
+          </div>
+        </a>
+
+        <!-- 技みっけ -->
+        <a href="#" class="app-card group bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 p-5 flex flex-col h-full">
+          <div class="mb-2 px-2 py-0.5 rounded-md bg-blue-100 text-[10px] font-bold text-blue-700 w-fit">🏭 製造業向け</div>
+          <div class="text-base font-black text-brand-navy">技みっけ</div>
+          <div class="mt-0.5 text-xs text-slate-500">職人の技を、言葉にする。</div>
+          <p class="mt-3 text-sm text-slate-600 flex-grow leading-relaxed">
+            製造・工場・職人向け。現場や製品の写真から技術力・こだわりをアピールするSNS投稿文・採用PR文を自動作成します。
+          </p>
+          <div class="mt-4 flex items-center justify-between">
+            <div class="text-xs text-slate-400">通常 ¥4,980 → <span class="text-brand-gold font-bold">3/31まで無料</span></div>
+            <div class="text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">試す →</div>
+          </div>
+        </a>
+
+      </div>
+
+      <!-- 全シリーズCTA -->
+      <div class="mt-8 text-center">
+        <a href="https://kachi-mikke.pages.dev" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2 bg-brand-navy hover:bg-slate-900 text-white font-black px-8 py-4 rounded-2xl shadow-lg shadow-brand-navy/20 transition hover:-translate-y-0.5 text-sm">
+          🎁 まず「価値みっけ」を無料で試す（3/31まで）
+        </a>
+        <p class="mt-2 text-xs text-slate-400">購入後はパスワードで永続利用可能 / ¥4,980買い切り</p>
+      </div>
+
+      <!-- コンセプト系ツール（折りたたみ） -->
+      <details class="mt-8 bg-white/75 border border-white/60 rounded-2xl overflow-hidden">
+        <summary class="cursor-pointer px-6 py-4 text-sm font-bold text-slate-500 hover:bg-slate-50 transition flex items-center gap-2">
+          <i data-lucide="layers" class="w-4 h-4 text-brand-cyan"></i>
+          思考整理ツール（開発コンセプト版）を見る
+        </summary>
+        <div class="px-6 pb-6 grid md:grid-cols-3 gap-4 mt-2">
+
+          <a href="https://spc-jp.github.io/bengoshi-1.1/" target="_blank" rel="noopener"
+             class="app-card group bg-white rounded-2xl border border-slate-200 p-5 flex flex-col h-full">
             <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「判断軸」</div>
             <div class="text-sm font-black text-brand-navy">士業のための思考整理AI</div>
-            <div class="mt-1 text-xs text-slate-500">判断の前に、考えを整える。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">専門用語を使わずに論点や考えを整理し、実務に入る前の思考の土台を整えます。</p>
-            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
+            <p class="mt-2 text-xs text-slate-600 flex-grow">専門用語を使わずに論点を整理し、実務に入る前の思考の土台を整えます。</p>
+            <div class="mt-3 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
           </a>
 
-          <!-- 潜在ニーズ軸 -->
-          <a href="https://spc-jp.github.io/senzai-needs/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
+          <a href="https://spc-jp.github.io/senzai-needs/" target="_blank" rel="noopener"
+             class="app-card group bg-white rounded-2xl border border-slate-200 p-5 flex flex-col h-full">
             <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「潜在ニーズ軸」</div>
             <div class="text-sm font-black text-brand-navy">潜在ニーズレーダー</div>
-            <div class="mt-1 text-xs text-slate-500">言葉になる前の「困った」を見つける。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">質問に答えるだけで頭の中に埋もれている困りごとを整理し、まだ言葉になっていない本音を見える形にします。</p>
-            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
+            <p class="mt-2 text-xs text-slate-600 flex-grow">質問に答えるだけで、まだ言葉になっていない本音を見える形にします。</p>
+            <div class="mt-3 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
           </a>
 
-          <!-- 未来軸 -->
-          <a href="https://spc-jp.github.io/mirai365-apl/" target="_blank" rel="noopener" class="group bg-white rounded-2xl border border-slate-200 p-5 hover:shadow-card transition flex flex-col h-full">
+          <a href="https://spc-jp.github.io/mirai365-apl/" target="_blank" rel="noopener"
+             class="app-card group bg-white rounded-2xl border border-slate-200 p-5 flex flex-col h-full">
             <div class="mb-2 px-2 py-0.5 rounded-md bg-brand-light text-[10px] font-bold text-brand-cyan w-fit">思考の「未来軸」</div>
             <div class="text-sm font-black text-brand-navy">Mirai365｜未来を描く習慣化ツール</div>
-            <div class="mt-1 text-xs text-slate-500">考えを、1日1歩に落とす。</div>
-            <p class="mt-3 text-sm text-slate-700 flex-grow">未来のイメージを言葉にし、毎日の一歩に落とすための思考整理ツール。続けられる形で目標と向き合えます。</p>
-            <div class="mt-4 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
+            <p class="mt-2 text-xs text-slate-600 flex-grow">未来のイメージを言葉にし、毎日の一歩に落とすための思考整理ツール。</p>
+            <div class="mt-3 text-xs text-brand-cyan font-bold group-hover:translate-x-1 transition-transform">ページを見る →</div>
           </a>
 
         </div>
+      </details>
+
+    </section>
+
+
+    <!-- ========== BLOCK 3：開発者の想い ========== -->
+    <section id="concept" class="max-w-5xl mx-auto px-4 md:px-6 mt-16 md:mt-24">
+      <div class="grid md:grid-cols-12 gap-6">
+
+        <!-- メイン -->
+        <div class="md:col-span-7 bg-white/80 border border-white/60 rounded-3xl shadow-card p-8 md:p-10">
+          <div class="section-label text-xs font-bold text-brand-cyan">開発者の想い</div>
+          <h2 class="mt-3 text-2xl md:text-3xl font-display font-black text-brand-navy leading-snug">
+            「考えるを、<br>ひとりにしない。」
+          </h2>
+          <p class="mt-6 text-slate-700 leading-loose text-sm md:text-base">
+            中小企業の現場に40年以上関わってきました。<br>
+            経営者の悩みの多くは、答えがないことじゃない。
+          </p>
+          <p class="mt-4 text-slate-700 leading-loose text-sm md:text-base">
+            「何から手をつければいいか」が分からなくなった瞬間に、仕事は止まります。
+          </p>
+          <p class="mt-4 text-slate-700 leading-loose text-sm md:text-base">
+            だからこそ、答えを出す前に「整理できる場所」を作りたかった。<br>
+            専門用語なし。難しい操作なし。<br>
+            現場の声だけで育てていくツールです。
+          </p>
+          <div class="mt-6 pt-6 border-t border-slate-100 text-xs text-slate-400">
+            Smile Plus Consulting　代表 松本嘉弥（YoshiBon）
+          </div>
+        </div>
+
+        <!-- サイドバー -->
+        <div class="md:col-span-5 flex flex-col gap-4">
+          <div class="bg-brand-light/80 border border-white/60 rounded-2xl shadow-card p-6">
+            <div class="text-xs font-bold text-brand-navy mb-3">こんな瞬間に使ってほしい</div>
+            <ul class="space-y-2.5 text-sm text-slate-700">
+              <li class="flex gap-2 items-start"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-cyan flex-shrink-0"></span>会議のあと、何を決めたか分からなくなる</li>
+              <li class="flex gap-2 items-start"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-cyan flex-shrink-0"></span>考えが散らかって、前に進めない</li>
+              <li class="flex gap-2 items-start"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-brand-cyan flex-shrink-0"></span>次の一手が決まらず、止まってしまう</li>
+            </ul>
+          </div>
+
+          <div class="bg-white/80 border border-white/60 rounded-2xl shadow-card p-6">
+            <div class="text-xs font-bold text-brand-navy mb-3">3つのステップ</div>
+            <div class="space-y-3">
+              <div class="flex gap-3 items-start">
+                <div class="w-6 h-6 rounded-full bg-brand-navy text-white text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5">1</div>
+                <div>
+                  <div class="text-xs font-bold text-brand-navy">材料を広げる</div>
+                  <div class="text-xs text-slate-500 mt-0.5">雑多でOK。思いつくまま置ける。</div>
+                </div>
+              </div>
+              <div class="flex gap-3 items-start">
+                <div class="w-6 h-6 rounded-full bg-brand-cyan text-white text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5">2</div>
+                <div>
+                  <div class="text-xs font-bold text-brand-navy">要点を絞る</div>
+                  <div class="text-xs text-slate-500 mt-0.5">課題・論点・仮説を短文で。</div>
+                </div>
+              </div>
+              <div class="flex gap-3 items-start">
+                <div class="w-6 h-6 rounded-full bg-brand-light border border-brand-cyan/40 text-brand-cyan text-[10px] font-black flex items-center justify-center flex-shrink-0 mt-0.5">3</div>
+                <div>
+                  <div class="text-xs font-bold text-brand-navy">次の一手にする</div>
+                  <div class="text-xs text-slate-500 mt-0.5">行動は最大3つに絞る。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
-    <!-- CO-CREATE (4) -->
-    <section id="cocreate" class="max-w-6xl mx-auto px-4 md:px-6 mt-14 md:mt-20">
-      <div class="bg-white/80 border border-white/60 rounded-3xl shadow-soft p-7 md:p-10">
-        <div class="text-xs font-bold text-brand-cyan">一緒に作る</div>
-        <!-- ここに改行タグ <br> を追加しました -->
-        <h2 class="mt-2 text-2xl md:text-3xl font-black text-brand-navy">未完成です。だから、<br>現場の声を1分ください。</h2>
 
-        <p class="mt-6 text-slate-700 leading-relaxed">
-          みんなの「困った」で、このアプリは育ちます🌱<br>
-          うまく言えなくても大丈夫。途中の考えでも、整理されていなくてもOK。<br>
+    <!-- ========== BLOCK 4：声を送る ========== -->
+    <section id="cocreate" class="max-w-5xl mx-auto px-4 md:px-6 mt-16 md:mt-24">
+      <div class="bg-white/80 border border-white/60 rounded-3xl shadow-soft p-8 md:p-12">
+        <div class="section-label text-xs font-bold text-brand-cyan">一緒に作る</div>
+        <h2 class="mt-3 text-2xl md:text-3xl font-display font-black text-brand-navy">
+          未完成です。だから、<br>現場の声を1分ください。
+        </h2>
+
+        <p class="mt-5 text-slate-600 leading-loose text-sm md:text-base">
+          みんなの「困った」で、このアプリは育ちます 🌱<br>
+          うまく言えなくても大丈夫。途中の考えでもOK。<br>
           現場の声が、次の仕組みのヒントになります。
         </p>
 
-        <div class="mt-6 bg-brand-light/70 border border-white/70 rounded-2xl p-5">
-          <p class="text-sm text-slate-700">売り込みや営業はしません。開発のヒントとして、大切に読ませていただきます😊</p>
+        <div class="mt-4 bg-brand-light/70 border border-brand-cyan/20 rounded-2xl p-4 text-sm text-slate-600">
+          売り込みや営業はしません。開発のヒントとして、大切に読ませていただきます 😊
         </div>
 
-        <form class="mt-6 grid gap-4">
+        <div class="mt-6 grid gap-4">
           <div>
             <label class="text-xs font-bold text-brand-navy">いま困っていること（ざっくりでOK）</label>
-            <textarea id="feedbackText" class="mt-2 w-full rounded-2xl border border-slate-200 p-4 bg-white/80 focus:outline-none focus:ring-2 focus:ring-brand-cyan" rows="4" placeholder="例：会議のあと、結局なにを決めたか分からなくなる／頭の中が散らかって動けない など"></textarea>
+            <textarea id="feedbackText" rows="4"
+              class="mt-2 w-full rounded-2xl border border-slate-200 p-4 bg-white/80 focus:outline-none focus:ring-2 focus:ring-brand-cyan text-sm"
+              placeholder="例：会議のあと、結局なにを決めたか分からなくなる／頭の中が散らかって動けない など"></textarea>
           </div>
 
-          <button type="button" id="openModalBtn" class="mt-2 inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-slate-900 text-white font-bold px-6 py-4 rounded-2xl shadow-lg shadow-brand-navy/20 transition hover:-translate-y-0.5">
+          <button type="button" id="openModalBtn"
+            class="inline-flex items-center justify-center gap-2 bg-brand-navy hover:bg-slate-900 text-white font-bold px-6 py-4 rounded-2xl shadow-lg shadow-brand-navy/20 transition hover:-translate-y-0.5 text-sm">
             <i data-lucide="mail" class="w-5 h-5"></i>
             困ったをメールで送る
           </button>
           <p class="text-xs text-slate-400 text-center">文章は自動でコピーされます</p>
 
-          <!-- コピー用バナー（LINEなどの場合） -->
-          <div class="mt-4 bg-brand-light/70 border border-brand-cyan/20 rounded-2xl p-4 flex flex-col md:flex-row items-center justify-between gap-4">
-            <div class="text-center md:text-left">
+          <div class="mt-2 bg-brand-light/70 border border-brand-cyan/20 rounded-2xl p-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
               <div class="text-xs font-bold text-brand-navy">LINEやチャットで送るなら</div>
               <div class="text-[10px] text-slate-500">文章だけコピーして、好きなアプリに貼り付けられます。</div>
             </div>
-            <button type="button" id="copyBannerBtn" class="whitespace-nowrap bg-white text-brand-cyan border border-brand-cyan font-bold px-4 py-2 rounded-xl hover:bg-brand-cyan hover:text-white transition shadow-sm text-sm">
+            <button type="button" id="copyBannerBtn"
+              class="whitespace-nowrap bg-white text-brand-cyan border border-brand-cyan font-bold px-4 py-2 rounded-xl hover:bg-brand-cyan hover:text-white transition shadow-sm text-sm">
               文章をコピーする
             </button>
           </div>
-        </form>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section id="faq" class="max-w-6xl mx-auto px-4 md:px-6 mt-14 md:mt-20">
-      <div class="bg-white/75 border border-white/60 rounded-3xl shadow-card p-7 md:p-10">
-        <div class="text-xs font-bold text-brand-cyan">よくある質問</div>
-        <!-- 文字サイズを少し小さく(text-xl)して1行に収める -->
-        <h2 class="mt-2 text-xl md:text-3xl font-black text-brand-navy">安心して置いていけるように</h2>
-
-        <div class="mt-8 space-y-3">
-          
-          <!-- Q1 -->
-          <details class="bg-white rounded-2xl border border-slate-200 p-5">
-            <summary class="cursor-pointer font-bold text-brand-navy">うまく言葉にできていなくても大丈夫ですか？</summary>
-            <div class="mt-3 text-sm text-slate-700 leading-relaxed">
-              <p class="font-bold mb-2">大丈夫です。</p>
-              <p>ここは、考えを整える前の場所です。<br>
-              途中のメモや、まとまっていない感覚のままで構いません。<br>
-              そのまま置いていただいて問題ありません。</p>
-            </div>
-          </details>
-
-          <!-- Q2 -->
-          <details class="bg-white rounded-2xl border border-slate-200 p-5">
-            <summary class="cursor-pointer font-bold text-brand-navy">今すぐ何かを決めたり、答えを出す必要はありますか？</summary>
-            <div class="mt-3 text-sm text-slate-700 leading-relaxed">
-              <p class="font-bold mb-2">ありません。</p>
-              <p>ここでは結論や判断を求めていません。<br>
-              まずは頭の中にあるものを並べるだけで大丈夫です。<br>
-              決めるのは、整理できてからで構いません。</p>
-            </div>
-          </details>
-
-          <!-- Q3 -->
-          <details class="bg-white rounded-2xl border border-slate-200 p-5">
-            <summary class="cursor-pointer font-bold text-brand-navy">どんな内容を書けばいいか分かりません。</summary>
-            <div class="mt-3 text-sm text-slate-700 leading-relaxed">
-              <p class="font-bold mb-2">書けるところだけで大丈夫です。</p>
-              <p>一言でも、箇条書きでも、途中で止まっていても問題ありません。<br>
-              「ここが引っかかっている」という感覚だけでも、十分です。</p>
-            </div>
-          </details>
-
         </div>
       </div>
     </section>
 
-    <!-- VISION (締め) -->
-    <section class="max-w-6xl mx-auto px-4 md:px-6 mt-14 md:mt-20">
-      <div class="bg-brand-navy text-white rounded-3xl shadow-soft p-7 md:p-10">
-        <!-- 文字サイズを少し小さく変更 (text-xl md:text-2xl) -->
-        <h2 class="text-xl md:text-2xl font-black">考えるを、ひとりにしない。</h2>
-        <p class="mt-4 text-white/90 leading-relaxed">
+
+    <!-- ========== BLOCK 5：FAQ + フッター ========== -->
+    <section class="max-w-5xl mx-auto px-4 md:px-6 mt-14 md:mt-20">
+      <div class="bg-white/75 border border-white/60 rounded-3xl shadow-card p-7 md:p-10">
+        <div class="section-label text-xs font-bold text-brand-cyan">よくある質問</div>
+        <h2 class="mt-2 text-xl md:text-2xl font-display font-black text-brand-navy">安心して置いていけるように</h2>
+
+        <div class="mt-6 space-y-3">
+          <details class="bg-white rounded-2xl border border-slate-200 p-5">
+            <summary class="cursor-pointer font-bold text-brand-navy text-sm">うまく言葉にできていなくても大丈夫ですか？</summary>
+            <div class="mt-3 text-sm text-slate-700 leading-relaxed">
+              大丈夫です。ここは考えを整える前の場所です。途中のメモや、まとまっていない感覚のままで構いません。そのまま置いていただいて問題ありません。
+            </div>
+          </details>
+          <details class="bg-white rounded-2xl border border-slate-200 p-5">
+            <summary class="cursor-pointer font-bold text-brand-navy text-sm">今すぐ何かを決めたり、答えを出す必要はありますか？</summary>
+            <div class="mt-3 text-sm text-slate-700 leading-relaxed">
+              ありません。ここでは結論や判断を求めていません。まずは頭の中にあるものを並べるだけで大丈夫です。決めるのは整理できてからで構いません。
+            </div>
+          </details>
+          <details class="bg-white rounded-2xl border border-slate-200 p-5">
+            <summary class="cursor-pointer font-bold text-brand-navy text-sm">どんな内容を書けばいいか分かりません。</summary>
+            <div class="mt-3 text-sm text-slate-700 leading-relaxed">
+              書けるところだけで大丈夫です。一言でも、箇条書きでも、途中で止まっていても問題ありません。「ここが引っかかっている」という感覚だけでも十分です。
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- VISION締め -->
+    <section class="max-w-5xl mx-auto px-4 md:px-6 mt-8">
+      <div class="bg-brand-navy text-white rounded-3xl shadow-soft p-8 md:p-10 text-center">
+        <h2 class="text-xl md:text-2xl font-display font-black">考えるを、ひとりにしない。</h2>
+        <p class="mt-3 text-white/80 text-sm leading-relaxed">
           便利な道具ではなく、信頼できる相棒を作りたい。<br>
           そのために、現場の声から育てていきます。
         </p>
-        <div class="mt-7">
-          <a href="#cocreate" class="inline-flex items-center justify-center gap-2 bg-white text-brand-navy font-black px-6 py-4 rounded-2xl shadow-lg transition hover:bg-slate-50">
+        <div class="mt-6">
+          <a href="#cocreate"
+             class="inline-flex items-center justify-center gap-2 bg-white text-brand-navy font-black px-7 py-3.5 rounded-2xl shadow-lg transition hover:bg-brand-light text-sm">
             1分だけ、声を置いていく
           </a>
         </div>
       </div>
 
-      <footer class="mt-10 text-center text-xs text-slate-400">
+      <footer class="mt-8 text-center text-xs text-slate-400 pb-4">
         <div>© Smile Plus Consulting</div>
+        <div class="mt-1">
+          <a href="https://www.smileplusctg.com/" target="_blank" rel="noopener" class="hover:text-brand-navy transition">公式サイト</a>
+        </div>
       </footer>
     </section>
 
   </main>
 
-  <!-- Modal for Send Options -->
+
+  <!-- ========== モーダル ========== -->
   <div id="sendOptionsModal" class="modal">
     <div class="bg-white p-8 rounded-3xl max-w-lg w-full mx-4 shadow-2xl relative">
-        <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
-            <i data-lucide="x" class="w-6 h-6"></i>
+      <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600">
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+      <h3 class="text-lg font-bold mb-2 text-center text-brand-navy">送信方法を選んでください</h3>
+      <p class="text-center text-xs text-slate-500 mb-6">文章はコピー済みです。お使いのメールを選んで貼り付けてください。</p>
+      <div class="space-y-3">
+        <button onclick="sendViaDefault()"
+          class="w-full flex items-center p-4 border-2 border-slate-100 hover:border-brand-cyan hover:bg-brand-light rounded-2xl transition-all group text-left">
+          <div class="w-11 h-11 bg-blue-100 text-brand-cyan rounded-full flex items-center justify-center flex-shrink-0 mr-4 group-hover:bg-brand-cyan group-hover:text-white transition-colors">
+            <i data-lucide="mail" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <p class="font-bold text-slate-800 text-sm">メールソフトで送る</p>
+            <p class="text-xs text-slate-500">Outlook, Macメールなど設定済みの方</p>
+          </div>
         </button>
-        
-        <h3 class="text-xl font-bold mb-6 text-center text-brand-navy">送信方法を選んでください</h3>
-        <p class="text-center text-sm text-slate-500 mb-6">文章はコピー済みです。お使いのメールを選んで貼り付けてください。</p>
-        
-        <div class="space-y-4">
-            <!-- Option 1: Default Mailer -->
-            <button onclick="sendViaDefault()" class="w-full flex items-center p-4 border-2 border-slate-100 hover:border-brand-cyan hover:bg-brand-light rounded-2xl transition-all group text-left">
-                <div class="w-12 h-12 bg-blue-100 text-brand-cyan rounded-full flex items-center justify-center flex-shrink-0 mr-4 group-hover:bg-brand-cyan group-hover:text-white transition-colors">
-                    <i data-lucide="mail" class="w-6 h-6"></i>
-                </div>
-                <div>
-                    <p class="font-bold text-slate-800">メールソフトで送る</p>
-                    <p class="text-xs text-slate-500">Outlook, Macメールなど設定済みの方</p>
-                </div>
-            </button>
-
-            <!-- Option 2: Gmail -->
-            <button onclick="sendViaGmail()" class="w-full flex items-center p-4 border-2 border-slate-100 hover:border-red-500 hover:bg-red-50 rounded-2xl transition-all group text-left">
-                <div class="w-12 h-12 bg-red-100 text-red-600 rounded-full flex items-center justify-center flex-shrink-0 mr-4 group-hover:bg-red-600 group-hover:text-white transition-colors">
-                    <i data-lucide="mail-plus" class="w-6 h-6"></i>
-                </div>
-                <div>
-                    <p class="font-bold text-slate-800">Gmailで送る</p>
-                    <p class="text-xs text-slate-500">ブラウザでGmailをお使いの方</p>
-                </div>
-            </button>
-
-            <!-- Option 3: Copy Text Fallback -->
-            <div class="border-t border-slate-100 my-4 pt-4">
-                <p class="text-xs text-slate-500 mb-2">文章がコピーできていない場合はこちら</p>
-                <button onclick="copyToClipboard(generateText())" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3 rounded-xl text-sm transition-colors flex items-center justify-center gap-2">
-                    <i data-lucide="copy" class="w-4 h-4"></i>
-                    もう一度コピーする
-                </button>
-            </div>
+        <button onclick="sendViaGmail()"
+          class="w-full flex items-center p-4 border-2 border-slate-100 hover:border-red-400 hover:bg-red-50 rounded-2xl transition-all group text-left">
+          <div class="w-11 h-11 bg-red-100 text-red-500 rounded-full flex items-center justify-center flex-shrink-0 mr-4 group-hover:bg-red-500 group-hover:text-white transition-colors">
+            <i data-lucide="mail-plus" class="w-5 h-5"></i>
+          </div>
+          <div>
+            <p class="font-bold text-slate-800 text-sm">Gmailで送る</p>
+            <p class="text-xs text-slate-500">ブラウザでGmailをお使いの方</p>
+          </div>
+        </button>
+        <div class="border-t border-slate-100 pt-4">
+          <button onclick="copyToClipboard(generateText())"
+            class="w-full bg-slate-100 hover:bg-slate-200 text-slate-600 font-bold py-3 rounded-xl text-sm transition flex items-center justify-center gap-2">
+            <i data-lucide="copy" class="w-4 h-4"></i>
+            もう一度コピーする
+          </button>
         </div>
+      </div>
     </div>
   </div>
 
-  <div id="toast" class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-brand-navy text-white text-sm px-5 py-3 rounded-full shadow-lg hidden z-[200]">
-    コピーしました。メール画面を開きます✉️
+  <div id="toast"
+    class="fixed bottom-6 left-1/2 -translate-x-1/2 bg-brand-navy text-white text-sm px-5 py-3 rounded-full shadow-lg hidden z-[200]">
+    コピーしました ✉️
   </div>
 
-  <script>
-    // アイコン初期化
-    lucide.createIcons();
 
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+
+    // ハンバーガー
     const menuBtn = document.getElementById('menuBtn');
     const mobileMenu = document.getElementById('mobileMenu');
     if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', ()=> mobileMenu.classList.toggle('hidden'));
+      menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+      // メニュー内リンクを押したら閉じる
+      mobileMenu.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+      });
     }
-
-    const openModalBtn = document.getElementById('openModalBtn');
-    const copyBannerBtn = document.getElementById('copyBannerBtn');
-    const toast = document.getElementById('toast');
-    const modal = document.getElementById('sendOptionsModal');
 
     // メールデータ
-    let emailData = {
-        to: "spc@smileplusctg.com",
-        subject: "【現場の困った（共有）】",
-        body: ""
-    };
+    const emailData = { to: "spc@smileplusctg.com", subject: "【現場の困った（共有）】", body: "" };
 
-    // 共通のテキスト生成関数
     function generateText() {
-        const textarea = document.getElementById('feedbackText');
-        return `【現場の困った（共有）】\n\n困っていること：\n${textarea.value || '（未入力）'}\n\n補足：うまく言えなくても大丈夫。途中の考えでもOKです。`;
+      const textarea = document.getElementById('feedbackText');
+      return `【現場の困った（共有）】\n\n困っていること：\n${textarea.value || '（未入力）'}\n\n補足：うまく言えなくても大丈夫。途中の考えでもOKです。`;
     }
 
-    // コピー処理
     async function copyToClipboard(text) {
+      try {
+        const t = document.createElement("textarea");
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand("copy");
+        document.body.removeChild(t);
+        showToast('文章をコピーしました 📋');
+        return true;
+      } catch (e) {
         try {
-            const tempInput = document.createElement("textarea");
-            tempInput.value = text;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand("copy");
-            document.body.removeChild(tempInput);
-            showToast('文章をコピーしました📋');
-            return true;
-        } catch (e) {
-            console.error(e);
-            try {
-                await navigator.clipboard.writeText(text);
-                showToast('文章をコピーしました📋');
-                return true;
-            } catch (err) {
-                alert('コピーに失敗しました。');
-                return false;
-            }
+          await navigator.clipboard.writeText(text);
+          showToast('文章をコピーしました 📋');
+          return true;
+        } catch {
+          alert('コピーに失敗しました。');
+          return false;
         }
+      }
     }
 
-    function showToast(message) {
-        toast.textContent = message;
-        toast.classList.remove('hidden');
-        setTimeout(()=> toast.classList.add('hidden'), 3000);
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.remove('hidden');
+      setTimeout(() => t.classList.add('hidden'), 3000);
     }
 
-    // モーダル操作
-    function openModal() {
-        modal.classList.add('show');
-    }
-    function closeModal() {
-        modal.classList.remove('show');
-    }
+    const modal = document.getElementById('sendOptionsModal');
+    function openModal()  { modal.classList.add('show'); }
+    function closeModal() { modal.classList.remove('show'); }
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
 
-    // 「困ったをメールで送る」ボタンクリック時
-    if (openModalBtn) {
-        openModalBtn.addEventListener('click', async () => {
-            const text = generateText();
-            emailData.body = text;
-            
-            // まずコピー
-            await copyToClipboard(text);
-            
-            // モーダルを表示
-            openModal();
-        });
-    }
+    document.getElementById('openModalBtn').addEventListener('click', async () => {
+      const text = generateText();
+      emailData.body = text;
+      await copyToClipboard(text);
+      openModal();
+    });
 
-    // バナーの「文章をコピーする」ボタン
-    if (copyBannerBtn) {
-        copyBannerBtn.addEventListener('click', async () => {
-            const text = generateText();
-            await copyToClipboard(text);
-        });
-    }
+    document.getElementById('copyBannerBtn').addEventListener('click', async () => {
+      await copyToClipboard(generateText());
+    });
 
-    // 送信処理 1: 標準メーラー
-    window.sendViaDefault = function() {
-        const mailtoUrl = `mailto:${emailData.to}?subject=${encodeURIComponent(emailData.subject)}&body=${encodeURIComponent(emailData.body)}`;
-        window.location.href = mailtoUrl;
+    window.sendViaDefault = () => {
+      window.location.href = `mailto:${emailData.to}?subject=${encodeURIComponent(emailData.subject)}&body=${encodeURIComponent(emailData.body)}`;
     };
-
-    // 送信処理 2: Gmail
-    window.sendViaGmail = function() {
-        const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${emailData.to}&su=${encodeURIComponent(emailData.subject)}&body=${encodeURIComponent(emailData.body)}`;
-        window.open(gmailUrl, '_blank');
+    window.sendViaGmail = () => {
+      window.open(`https://mail.google.com/mail/?view=cm&fs=1&to=${emailData.to}&su=${encodeURIComponent(emailData.subject)}&body=${encodeURIComponent(emailData.body)}`, '_blank');
     };
-
-    // グローバルスコープへの公開（HTMLのonclick属性用）
     window.closeModal = closeModal;
     window.copyToClipboard = copyToClipboard;
     window.generateText = generateText;
