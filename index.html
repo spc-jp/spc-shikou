@@ -274,7 +274,8 @@
         </a>
 
         <!-- 艶みっけ -->
-        <a href="#" class="app-card group bg-gradient-to-br from-pink-50 to-white rounded-2xl border border-pink-100 p-5 flex flex-col h-full">
+        <a href="https://spc-jp.github.io/tsuya-mikke/" target="_blank" rel="noopener"
+           class="app-card group bg-gradient-to-br from-pink-50 to-white rounded-2xl border border-pink-100 p-5 flex flex-col h-full">
           <div class="mb-2 px-2 py-0.5 rounded-md bg-pink-100 text-[10px] font-bold text-pink-600 w-fit">💄 美容業向け</div>
           <div class="text-base font-black text-brand-navy">艶みっけ</div>
           <div class="mt-0.5 text-xs text-slate-500">施術写真から、集客投稿文を自動生成。</div>
@@ -288,7 +289,8 @@
         </a>
 
         <!-- 味みっけ -->
-        <a href="#" class="app-card group bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 p-5 flex flex-col h-full">
+        <a href="https://aji-mikke.pages.dev/" target="_blank" rel="noopener"
+           class="app-card group bg-gradient-to-br from-orange-50 to-white rounded-2xl border border-orange-100 p-5 flex flex-col h-full">
           <div class="mb-2 px-2 py-0.5 rounded-md bg-orange-100 text-[10px] font-bold text-orange-600 w-fit">🍽️ 飲食業向け</div>
           <div class="text-base font-black text-brand-navy">味みっけ</div>
           <div class="mt-0.5 text-xs text-slate-500">料理写真から、食欲そそる投稿文へ。</div>
@@ -302,7 +304,8 @@
         </a>
 
         <!-- 技みっけ -->
-        <a href="#" class="app-card group bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 p-5 flex flex-col h-full">
+        <a href="https://spc-jp.github.io/waza-mikke/" target="_blank" rel="noopener"
+           class="app-card group bg-gradient-to-br from-blue-50 to-white rounded-2xl border border-blue-100 p-5 flex flex-col h-full">
           <div class="mb-2 px-2 py-0.5 rounded-md bg-blue-100 text-[10px] font-bold text-blue-700 w-fit">🏭 製造業向け</div>
           <div class="text-base font-black text-brand-navy">技みっけ</div>
           <div class="mt-0.5 text-xs text-slate-500">職人の技を、言葉にする。</div>
@@ -624,7 +627,8 @@
           showToast('文章をコピーしました 📋');
           return true;
         } catch {
-          alert('コピーに失敗しました。');
+          // alertの代わりに既存のトースト通知を使用
+          showToast('コピーに失敗しました ❌');
           return false;
         }
       }
